@@ -8,7 +8,8 @@ import os
 class Trainer:
     def __init__(self, dataset, args):
         self.device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-        self.model = SimplE(dataset.num_ent(), dataset.num_rel(), args.emb_dim, self.device)
+        #(ent|rel)2id contains the dictionary to retrieve vectors for certain entities/relations
+        self.model = SimplE(dataset.num_ent(), dataset.num_rel(), args.emb_dim, self.device, dataset.ent2id, dataset.rel2id)
         self.dataset = dataset
         self.args = args
         

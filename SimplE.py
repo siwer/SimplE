@@ -3,12 +3,15 @@ import torch.nn as nn
 import math
 
 class SimplE(nn.Module):
-    def __init__(self, num_ent, num_rel, emb_dim, device):
+    def __init__(self, num_ent, num_rel, emb_dim, device, ent2id, rel2id):
         super(SimplE, self).__init__()
         self.num_ent = num_ent
         self.num_rel = num_rel
         self.emb_dim = emb_dim
         self.device = device
+        #added ent2id and rel2id to be part of the saved model
+        self.ent2id = ent2id
+        self.rel2id = rel2id
 
         self.ent_h_embs   = nn.Embedding(num_ent, emb_dim).to(device)
         self.ent_t_embs   = nn.Embedding(num_ent, emb_dim).to(device)
