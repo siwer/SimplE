@@ -32,28 +32,13 @@ class Tester:
             result = [tuple(fact)] + list(set(queries) - self.all_facts_as_set_of_tuples)
 
         return self.shred_facts(result)
-
-    # def replace_and_shred(self, fact, raw_or_fil, head_or_tail):
-    #     ret_facts = []
-    #     head, rel, tail = fact
-    #     for i in range(self.dataset.num_ent()):
-    #         if head_or_tail == "head" and i != head:
-    #             ret_facts.append((i, rel, tail))
-    #         if head_or_tail == "tail" and i != tail:
-    #             ret_facts.append((head, rel, i))
-
-    #     if raw_or_fil == "raw":
-    #         ret_facts = [tuple(fact)] + ret_facts
-    #     elif raw_or_fil == "fil":
-    #         ret_facts = [tuple(fact)] + list(set(ret_facts) - self.all_facts_as_set_of_tuples)
-
-    #     return self.shred_facts(ret_facts)
     
     def test(self):
         settings = ["raw", "fil"] if self.valid_or_test == "test" else ["fil"]
         
         for i, fact in enumerate(self.dataset.data[self.valid_or_test]):
-            for head_or_tail in ["head", "tail"]:
+            #changed to tail only for comparison reasons
+            for head_or_tail in ["tail"]:
                 queries = self.create_queries(fact, head_or_tail)
                 for raw_or_fil in settings:
                     h, r, t = self.add_fact_and_shred(fact, queries, raw_or_fil)
